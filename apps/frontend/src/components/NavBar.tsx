@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React, { useState } from "react";
 import { Menu, X, User, Search, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
-import { logout } from "../services/authService"; // Import logout function
+import { logout } from "../services/authService";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +9,9 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAccountMenu = () => setIsAccountOpen(!isAccountOpen);
+
+  const closeMenu = () => setIsMenuOpen(false); 
+  const closeAccountMenu = () => setIsAccountOpen(false); 
 
   const menuItems = [
     { href: "/", label: "Trang chủ" },
@@ -63,7 +65,10 @@ const Navbar = () => {
                     <Link
                       key={href}
                       to={href}
-                      onClick={onClick}
+                      onClick={() => {
+                        if (onClick) onClick(); 
+                        closeAccountMenu();
+                      }}
                       className="flex items-center px-4 py-2 text-gray-700 hover:bg-blue-100"
                     >
                       {icon}
@@ -96,6 +101,7 @@ const Navbar = () => {
               <Link
                 key={href}
                 to={href}
+                onClick={closeMenu} 
                 className="block px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100"
               >
                 {label}
@@ -111,7 +117,10 @@ const Navbar = () => {
                 <Link
                   key={href}
                   to={href}
-                  onClick={onClick}
+                  onClick={() => {
+                    if (onClick) onClick(); 
+                    closeMenu(); 
+                  }}
                   className="flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-blue-100"
                 >
                   {icon}
