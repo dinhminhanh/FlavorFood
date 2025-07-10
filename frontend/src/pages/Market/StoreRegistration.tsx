@@ -43,6 +43,23 @@ const StoreRegistration = () => {
 
     fetchSubscriptions();
   }, []);
+  const planFeaturesMap: Record<number, string[]> = {
+    2: [
+      "Hiển thị trên bản đồ",
+      "Giới hạn 50 nguyên liệu",
+    ],
+    3: [
+      "Hiển thị trên bản đồ",
+      "Giới hạn 100 nguyên liệu",
+      "Hỗ trợ qua email",
+    ],
+    4: [
+      "Hiển thị trên bản đồ",
+      "Không giới hạn nguyên liệu",
+      "Tư vấn marketing định kỳ",
+      "Hỗ trợ qua email",
+    ]
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -170,7 +187,7 @@ const StoreRegistration = () => {
                       {feature.icon}
                     </div>
                     <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <p className="text-black">{feature.description}</p>
                   </div>
                 ))}
               </div>
@@ -223,17 +240,15 @@ const StoreRegistration = () => {
                       </p>
                       <div className="flex-grow">
                         <ul className="space-y-4 mb-8">
-                          {(() => {
-                            const features = parseFeatures(subscription.description);
-                            return Array.isArray(features) ? features.map((feature: string, index: number) => (
-                              <li key={index} className="flex items-start">
-                                <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
-                                <span className="text-black">{feature}</span>
-                              </li>
-                            )) : (
-                              <li className="text-black">Không có thông tin chi tiết</li>
-                            );
-                          })()}
+                        <ul className="space-y-4 mb-8">
+  {(planFeaturesMap[subscription.subscription_id] || []).map((feature, index) => (
+    <li key={index} className="flex items-start">
+      <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
+      <span className="text-black">{feature}</span>
+    </li>
+  ))}
+</ul>
+
                         </ul>
                       </div>
                     </div>

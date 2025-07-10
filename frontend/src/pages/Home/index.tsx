@@ -102,8 +102,8 @@ const Home: React.FC = () => {
             
           } catch (error) {
             console.error('Lỗi khi gọi /recipes/recommend:', error);
-            console.error('Response data:', error.response?.data);
-            console.error('Request headers:', error.config?.headers);
+            // console.error('Response data:', error.response?.data);
+            // console.error('Request headers:', error.config?.headers);
             
           }
         } else {

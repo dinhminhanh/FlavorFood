@@ -20,6 +20,22 @@ const highlightSearchTerm = (text: string, searchTerm: string): React.ReactNode 
 
 const StoreDetails: React.FC<{ store: any, searchTerm: string }> = ({ store, searchTerm }) => {
   const [imgError, setImgError] = useState(false);
+  store.ingredientSource = [
+    {
+      name: "Trang trại hữu cơ Organica",
+      location: "Đà Lạt",
+      type: "Rau củ quả đạt chuẩn hữu cơ",
+      certified: true
+    },
+    {
+      name: "Hợp tác xã chăn nuôi An Việt",
+      location: "Sơn Tây, Hà Nội",
+      type: "Thịt heo và thịt bò sạch",
+      certified: true
+    },
+
+  ]
+  
 
   return (
     <div className="p-4">
@@ -32,10 +48,49 @@ const StoreDetails: React.FC<{ store: any, searchTerm: string }> = ({ store, sea
         className="w-full max-w-md h-48 object-cover rounded-lg mb-4"
         onError={() => setImgError(true)}
       />
-      <p className="mb-1">{store.description}</p>
+      {/* <p className="mb-1">{store.description}</p> */}
+    
+      <h3 className="flex items-center text-lg font-semibold text-black mb-4">
+  
+  Nguồn nguyên liệu đảm bảo an toàn thực phẩm
+</h3>
+
+{store.ingredientSource && store.ingredientSource.length > 0 ? (
+  <ul className="space-y-4">
+    {store.ingredientSource.map((source: any, index: number) => (
+      <li key={index} className="flex items-start">
+        {/* <MapPin className="w-4 h-4 text-green-600 mr-2 mt-1 flex-shrink-0" /> */}
+        <div>
+          <p className="text-gray-900 font-medium">
+            {highlightSearchTerm(source.name, searchTerm)}
+          </p>
+          <p className="text-sm text-gray-700">
+            {source.type} – {source.location}
+          </p>
+          {source.certified ? (
+            <p className="text-xs text-green-700 font-semibold">
+              ✅ Đã được chứng nhận an toàn thực phẩm
+            </p>
+          ) : (
+            <p className="text-xs text-gray-500 italic">
+              Chưa có chứng nhận chính thức
+            </p>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p className="text-gray-500 italic">Chưa có thông tin về nguồn nguyên liệu.</p>
+)}
+
+<p className="mt-4 text-xs text-gray-500 italic">
+  * Cửa hàng cam kết chỉ sử dụng nguyên liệu rõ nguồn gốc, kiểm tra định kỳ theo quy định của Bộ Y tế.
+</p>
+
 
       <div className="flex items-center gap-4 mt-4 mb-2 text-black">
-        <MapPin className="text-blue-500 w-12 h-12" />
+        <MapPin className="text-blue-500 w-10 h-10" />
         <span>Địa chỉ: {store.address}</span>
       </div>
 

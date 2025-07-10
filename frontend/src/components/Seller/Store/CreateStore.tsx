@@ -20,6 +20,8 @@ const CreateStore = ({ onCreate , currentUser}: CreateStoreProps) => {
     openHours: "07:00",
     closeHours: "21:00",
     image: "", 
+    ingredientSource: "", // 🆕 Nguồn gốc nguyên liệu
+    certifications: "",  
   });
   
 
@@ -97,7 +99,9 @@ const CreateStore = ({ onCreate , currentUser}: CreateStoreProps) => {
       <h2 className="text-2xl font-bold mb-6 text-center">Tạo cửa hàng</h2>
 
       <div className="mb-4">
-        <label className="block text-black font-semibold mb-2">Tên cửa hàng *</label>
+      <label className="block text-black font-semibold mb-2">
+  Tên cửa hàng <span className="text-red-500">*</span>
+</label>
         <input
           type="text"
           name="name"
@@ -109,16 +113,40 @@ const CreateStore = ({ onCreate , currentUser}: CreateStoreProps) => {
       </div>
 
       <div className="mb-4">
-        <label className="block text-black font-semibold mb-2">Địa chỉ *</label>
+        <label className="block text-black font-semibold mb-2">Địa chỉ <span className="text-red-500">*</span></label>
         <input
           type="text"
           name="address"
           value={formData.address}
           onChange={handleChange}
+          placeholder="Ví dụ: 123 Đường ABC, Hoàn Kiếm, Hà Nội"
           required
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
+      <div className="mb-4">
+  <label className="block text-black font-semibold mb-2">Nguồn gốc nguyên liệu <span className="text-red-500">*</span></label>
+  <textarea
+    name="ingredientSource"
+    value={formData.ingredientSource}
+    onChange={handleChange}
+    rows={2}
+    placeholder="Ví dụ: Rau từ Đà Lạt, thịt từ trang trại hữu cơ Ba Vì..."
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+  />
+</div>
+
+<div className="mb-4">
+  <label className="block text-black font-semibold mb-2">Giấy chứng nhận an toàn thực phẩm <span className="text-red-500">*</span></label>
+  <textarea
+    name="certifications"
+    value={formData.certifications}
+    onChange={handleChange}
+    rows={2}
+    placeholder="Ví dụ: Giấy chứng nhận VSATTP số 123/2024/BYT..."
+    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+  />
+</div>
 
       <div className="mb-4">
         <label className="block text-black font-semibold mb-2">Mô tả</label>
